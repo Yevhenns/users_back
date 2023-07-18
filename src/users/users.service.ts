@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common'
 import { User } from './users.model'
-// import { InjectModel } from '@nestjs/sequelize'
 import { createUserDto } from './dto/create-user.dto'
 import { InjectModel } from '@nestjs/sequelize'
 
@@ -16,5 +15,14 @@ export class UsersService {
   async getAllUsers() {
     const users = await this.userRepository.findAll()
     return users
+  }
+
+  async getOne(id: number) {
+    const user = await this.userRepository.findByPk(id)
+    return user
+  }
+
+  async removeItem(id: number) {
+    await this.userRepository.destroy({ where: { id: id } })
   }
 }

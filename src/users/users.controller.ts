@@ -1,4 +1,4 @@
-import { Body, Get, Post, Controller } from '@nestjs/common'
+import { Body, Get, Post, Delete, Controller, Param } from '@nestjs/common'
 import { createUserDto } from './dto/create-user.dto'
 import { UsersService } from './users.service'
 
@@ -14,5 +14,15 @@ export class UsersController {
   @Get()
   getAll() {
     return this.usersService.getAllUsers()
+  }
+
+  @Get(':id')
+  getById(@Param('id') id: number) {
+    return this.usersService.getOne(id)
+  }
+
+  @Delete(':id')
+  removeItem(@Param('id') id: number) {
+    return this.usersService.removeItem(id)
   }
 }
