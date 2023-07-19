@@ -6,7 +6,9 @@ import { User } from './users/users.model'
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     SequelizeModule.forRootAsync({
+      imports: [ConfigModule],
       useFactory: () => ({
         dialect: 'postgres',
         host: process.env.POSTGRES_HOST,
@@ -17,9 +19,6 @@ import { User } from './users/users.model'
         models: [User],
         autoLoadModels: true
       })
-    }),
-    ConfigModule.forRoot({
-      envFilePath: '.env'
     }),
     UsersModule
   ],
