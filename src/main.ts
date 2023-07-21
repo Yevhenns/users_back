@@ -11,7 +11,7 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   )
-  app.enableCors()
+  // app.enableCors()
   await app.listen(port, () => console.log(`started on port ${port}`))
 }
 bootstrap()
