@@ -13,7 +13,7 @@ type Query {
 }
 
 type Mutation {
-  createUser(createUserInput: createUserInput!): User!
+  createUser(contacts: createUserInput!): User!
 }
 
 input createUserInput {

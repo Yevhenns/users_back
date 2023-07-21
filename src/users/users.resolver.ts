@@ -3,19 +3,17 @@ import { UsersService } from './users.service'
 import { User } from './user.entity'
 import { createUserInput } from './dto/create-user.input'
 
-@Resolver(of => User)
+@Resolver(User)
 export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
-  @Query(returns => [User])
+  @Query(() => [User])
   users(): Promise<User[]> {
     return this.usersService.getAllUsers()
   }
 
-  @Mutation(returns => User)
-  createUser(
-    @Args('createUserInput') createUserInput: createUserInput
-  ): Promise<User> {
-    return this.usersService.createUser(createUserInput)
+  @Mutation(() => User)
+  createUser(@Args('contacts') contacts: createUserInput): Promise<User> {
+    return this.usersService.createUser(contacts)
   }
 }

@@ -20,9 +20,6 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       username: process.env.POSTGRES_USER,
       password: String(process.env.POSTGRES_PASSWORD),
       database: process.env.POSTGRES_DB,
-      // autoLoadModels: true,
-      // type: 'postgres',
-      // url: ':memory:',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true
     }),
