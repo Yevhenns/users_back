@@ -19,10 +19,14 @@ export class UsersService {
     return this.usersRepository.save(user)
   }
 
-  // async getOne(id: number) {
-  //   const user = await this.userRepository.findByPk(id)
-  //   return user
-  // }
+  async getOne(id: number): Promise<User> {
+    return this.usersRepository.findOne({ where: { id } })
+  }
+
+  async removeUser(id: number): Promise<boolean> {
+    const result = await this.usersRepository.delete({ id })
+    return result.affected && result.affected > 0
+  }
 
   // async removeItem(id: number) {
   //   await this.userRepository.destroy({ where: { id: id } })

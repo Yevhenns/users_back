@@ -10,10 +10,12 @@ type User {
 
 type Query {
   users: [User!]!
+  oneUser(userId: Int!): User!
 }
 
 type Mutation {
-  createUser(contacts: createUserInput!): User!
+  createUser(userInfo: createUserInput!): User!
+  removeUser(userId: Int!): User!
 }
 
 input createUserInput {
