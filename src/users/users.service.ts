@@ -27,8 +27,4 @@ export class UsersService {
     const result = await this.usersRepository.delete({ id })
     return result.affected && result.affected > 0
   }
-
-  // async removeItem(id: number) {
-  //   await this.userRepository.destroy({ where: { id: id } })
-  // }
 }

@@ -22,7 +22,7 @@ export class UsersResolver {
     return this.usersService.createUser(userInfo)
   }
 
-  @Mutation(() => User)
+  @Mutation(() => Boolean)
   removeUser(
     @Args('userId', { type: () => Int }) id: number
   ): Promise<boolean> {
