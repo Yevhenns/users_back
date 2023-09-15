@@ -1,28 +1,30 @@
 import { Injectable } from '@nestjs/common'
-import { User } from './users.model'
-import { createUserDto } from './dto/create-user.dto'
-import { InjectModel } from '@nestjs/sequelize'
+import { User } from './user.entity'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { createUserInput } from './dto/create-user.input'
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User) private userRepository: typeof User) {}
+  constructor(
+    @InjectRepository(User) private usersRepository: Repository<User>
+  ) {}
 
-  async createUser(dto: createUserDto) {
-    const user = await this.userRepository.create(dto)
-    return user
+  async getAllUsers(): Promise<User[]> {
+    return this.usersRepository.find()
   }
 
-  async getAllUsers() {
-    const users = await this.userRepository.findAll()
-    return users
+  async createUser(createUserInput: createUserInput): Promise<User> {
+    const user = this.usersRepository.create(createUserInput)
+    return this.usersRepository.save(user)
   }
 
-  async getOne(id: number) {
-    const user = await this.userRepository.findByPk(id)
-    return user
+  async getOne(id: number): Promise<User> {
+    return this.usersRepository.findOne({ where: { id } })
   }
 
-  async removeItem(id: number) {
-    await this.userRepository.destroy({ where: { id: id } })
+  async removeUser(id: number): Promise<boolean> {
+    const result = await this.usersRepository.delete({ id })
+    return result.affected && result.affected > 0
   }
 }
